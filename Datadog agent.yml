@@ -1,0 +1,12 @@
+##
+# Install Datadog agent
+##
+- name: install datadog agent
+  hosts: all
+  tags: ['pre-deploy']
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Datadog agent
+      raw: DD_API_KEY=c7edce79e13f9c676e28e62526494022 bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/datadog-agent/master/cmd/agent/install_script.sh)"date
+      tags: ['ubuntu']
