@@ -1,0 +1,17 @@
+##
+# update instances, install ntp, install clam av and jumpcloud key
+##
+- name: update instances, install ntp, install clam av and jumpcloud key.
+  hosts: all
+  tags: ['pre-deploy']
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: update
+      command: ["/bin/sh","-c"]
+      args: [sudo apt update -y;
+             sudo apt-get install ntp;
+             sudo apt-get ntp-update;
+             sudo apt-get install clamav;
+             curl --tlsv1.2 --silent --show-error --header 'x-connect-key: 7f68c7cd10a6864dd598b9bdb8a4513a8c3bad7d' https://kickstart.jumpcloud.com/Kickstart | sudo bash ]
+      tags: ['ubuntu']
