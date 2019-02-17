@@ -1,19 +1,27 @@
-##
-# update instances, install ntp, install clam av and jumpcloud key
-##
-- name: update instances, install ntp, install clam av and jumpcloud key.
+- name: Setup ansible
   hosts: all
   tags: ['pre-deploy']
   gather_facts: no
   become: yes
   tasks:
-    - name: update
-      command: ["/bin/sh","-c"]
-      args: [sudo apt update -y;
-             sudo apt-get install ntp;
-             sudo apt-get ntp-update;
-             sudo apt-get install clamav]
+    - name: Update apt packages
+      raw: sudo apt-get update
+      tags: ['ubuntu']
+
+    - name: Install python & aptitude for ansible
+      raw: sudo apt install python aptitude -y
       tags: ['ubuntu']
       
+    - name: install ntp
+      raw: sudo apt install ntp -y
+      tags: ['ubuntu']
+      
+    - name: install ntp Update
+      raw: sudo apt install ntpdate -y
+      tags: ['ubuntu']
+
+    - name: install clam av
+      raw: sudo apt install clamav -y  
+      tags: ['ubuntu']
     
 
